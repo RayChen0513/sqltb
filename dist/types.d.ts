@@ -3,8 +3,12 @@ export type ColumnOptions = {
     ALLOW_NULL?: boolean;
     UNIQUE?: boolean;
     DEFAULT?: boolean;
-    DEFAULT_VALUE?: unknown;
+    DEFAULT_VALUE?: string | RAW_STYLE;
+    ONUPDATE?: string | RAW_STYLE;
     COMMENT?: string;
+};
+export type RAW_STYLE = {
+    RAW: string;
 };
 export type Column = {
     name: string;

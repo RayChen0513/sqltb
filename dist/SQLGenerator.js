@@ -13,10 +13,23 @@ export class SQLGenerator {
             }
             if (options.DEFAULT === true &&
                 options.DEFAULT_VALUE !== undefined) {
-                sql += ` DEFAULT ${this.formatValue(options.DEFAULT_VALUE)}`;
+                if (typeof options.DEFAULT_VALUE === "string") {
+                    sql += ` DEFAULT '${this.formatValue(options.DEFAULT_VALUE)}'`;
+                }
+                else {
+                    sql += ` DEFAULT ${options.DEFAULT_VALUE.RAW}`;
+                }
             }
             if (options.AUTO_INCREMENT === true) {
                 sql += " AUTO_INCREMENT";
+            }
+            if (options.ONUPDATE) {
+                if (typeof options.ONUPDATE === "string") {
+                    sql += ` ONUPDATE '${this.formatValue(options.ONUPDATE)}'`;
+                }
+                else {
+                    sql += ` ONUPDATE ${options.ONUPDATE.RAW}`;
+                }
             }
             definitions.push(sql);
         }
