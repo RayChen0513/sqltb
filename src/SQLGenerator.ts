@@ -39,11 +39,16 @@ export class SQLGenerator {
                 options.DEFAULT === true &&
                 options.DEFAULT_VALUE !== undefined
             ) {
-                sql += ` DEFAULT ${
-                    this.formatValue(
-                        options.DEFAULT_VALUE
-                    )
-                }`;
+                if (typeof options.DEFAULT_VALUE === "string") {
+                    sql += ` DEFAULT '${
+                        this.formatValue(
+                            options.DEFAULT_VALUE
+                        )
+                    }'`;
+                }
+                else {
+                    sql += ` DEFAULT ${options.DEFAULT_VALUE.RAW}`;
+                }
             }
 
 

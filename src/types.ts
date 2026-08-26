@@ -5,7 +5,7 @@ export type ColumnOptions = {
     UNIQUE?: boolean;
 
     DEFAULT?: boolean;
-    DEFAULT_VALUE?: unknown;
+    DEFAULT_VALUE?: string | RAW_STYLE;
     ONUPDATE?: string | RAW_STYLE;
 
     COMMENT?: string;
