@@ -6,10 +6,14 @@ export type ColumnOptions = {
 
     DEFAULT?: boolean;
     DEFAULT_VALUE?: unknown;
+    ONUPDATE?: string | RAW_STYLE;
 
     COMMENT?: string;
 };
 
+export type RAW_STYLE = {
+    RAW: string
+}
 
 export type Column = {
     name: string;

@@ -1,7 +1,8 @@
 import type {
     TableType,
     Column,
-    ForeignKey
+    ForeignKey,
+    RAW_STYLE
 } from "./types.js";
 
 
@@ -48,6 +49,19 @@ export class SQLGenerator {
 
             if (options.AUTO_INCREMENT === true) {
                 sql += " AUTO_INCREMENT";
+            }
+
+            if (options.ONUPDATE) {
+                if (typeof options.ONUPDATE === "string") {
+                    sql += ` ONUPDATE '${
+                        this.formatValue(
+                            options.ONUPDATE
+                        )
+                    }'`;
+                }
+                else {
+                    sql += ` ONUPDATE ${options.ONUPDATE.RAW}`;
+                }
             }
 
 
