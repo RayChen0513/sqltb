@@ -23,7 +23,7 @@ export type Index = {
 };
 export type ForeignKey = {
     columns: string[];
-    referenceTable: string;
+    referenceTable: string | TableType;
     referenceColumns: string[];
     onDelete?: "CASCADE" | "SET NULL" | "RESTRICT" | "NO ACTION";
     onUpdate?: "CASCADE" | "SET NULL" | "RESTRICT" | "NO ACTION";

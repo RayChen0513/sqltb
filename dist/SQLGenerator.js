@@ -39,6 +39,16 @@ export class SQLGenerator {
                 .map(column => this.escape(column))
                 .join(", ")})`);
         }
+        // Indexes
+        if (table.indexes) {
+            table.indexes.forEach((i) => {
+                if (i.type === "UNIQUE") {
+                    definitions.push(`PRIMARY KEY (${i.columns
+                        .map(column => this.escape(column))
+                        .join(", ")})`);
+                }
+            });
+        }
         // Foreign Keys
         for (const key of table.foreignKeys) {
             definitions.push(this.foreignKey(key));
@@ -58,7 +68,7 @@ export class SQLGenerator {
                 .map((column) => this.escape(column))
                 .join(", ") +
             `) REFERENCES ` +
-            `${this.escape(key.referenceTable)} (` +
+            `${this.escape(typeof key.referenceTable === "string" ? key.referenceTable : `${key.referenceTable.name}_V${String(key.referenceTable.version)}`)} (` +
             key.referenceColumns
                 .map((column) => this.escape(column))
                 .join(", ") +

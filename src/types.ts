@@ -37,7 +37,7 @@ export type Index = {
 export type ForeignKey = {
     columns: string[];
 
-    referenceTable: string;
+    referenceTable: string | TableType;
     referenceColumns: string[];
 
     onDelete?:

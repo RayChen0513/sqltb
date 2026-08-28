@@ -85,6 +85,21 @@ export class SQLGenerator {
             );
         }
 
+        // Indexes
+
+        if (table.indexes) {
+            table.indexes.forEach((i) => {
+                if (i.type === "UNIQUE") {
+                    definitions.push(
+                    `PRIMARY KEY (${i.columns
+                        .map(column => this.escape(column))
+                        .join(", ")})`
+                );
+                }
+
+            })
+        }
+
 
         // Foreign Keys
 
@@ -122,7 +137,7 @@ export class SQLGenerator {
                 .map((column: string) => this.escape(column))
                 .join(", ") +
             `) REFERENCES ` +
-            `${this.escape(key.referenceTable)} (` +
+            `${this.escape(typeof key.referenceTable === "string" ? key.referenceTable : `${key.referenceTable.name}_V${String(key.referenceTable.version)}`)} (` +
             key.referenceColumns
                 .map((column: string) => this.escape(column))
                 .join(", ") +
