@@ -188,7 +188,7 @@ export class Table {
 
     addForeignKey(
         columns: string | string[],
-        referenceTable: string,
+        referenceTable: string| TableType,
         referenceColumns: string | string[],
         options: {
             onDelete?: ForeignKey["onDelete"];

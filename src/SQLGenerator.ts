@@ -91,7 +91,7 @@ export class SQLGenerator {
             table.indexes.forEach((i) => {
                 if (i.type === "UNIQUE") {
                     definitions.push(
-                    `PRIMARY KEY (${i.columns
+                    `UNIQUE (${i.columns
                         .map(column => this.escape(column))
                         .join(", ")})`
                 );

@@ -15,7 +15,7 @@ export declare class Table {
     setPK(name: string | string[]): this;
     addIndex(columns: string | string[], name?: string): this;
     addUnique(columns: string | string[], name?: string): this;
-    addForeignKey(columns: string | string[], referenceTable: string, referenceColumns: string | string[], options?: {
+    addForeignKey(columns: string | string[], referenceTable: string | TableType, referenceColumns: string | string[], options?: {
         onDelete?: ForeignKey["onDelete"];
         onUpdate?: ForeignKey["onUpdate"];
     }): this;
