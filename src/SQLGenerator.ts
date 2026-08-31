@@ -58,14 +58,14 @@ export class SQLGenerator {
 
             if (options.ONUPDATE) {
                 if (typeof options.ONUPDATE === "string") {
-                    sql += ` ONUPDATE '${
+                    sql += ` ON UPDATE '${
                         this.formatValue(
                             options.ONUPDATE
                         )
                     }'`;
                 }
                 else {
-                    sql += ` ONUPDATE ${options.ONUPDATE.RAW}`;
+                    sql += ` ON UPDATE ${options.ONUPDATE.RAW}`;
                 }
             }
 
