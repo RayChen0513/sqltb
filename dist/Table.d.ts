@@ -26,6 +26,7 @@ export declare class Table {
     findOldVersions(tables: string[]): number[];
     findOldTables(tables: string[]): string[];
     isCurrentVersionEsist(tables: string[]): boolean;
+    private getVersionPattern;
     private validateColumns;
     private escape;
     private formatValue;

@@ -307,28 +307,36 @@ export class Table {
     // --------------------------------------------------
 
     findOldVersions(tables: string[]): number[] {
-        const tablePrefix = new RegExp(`${this.name}_V(\\d+(\\.\\d+)?)`);
-        const matchedTables = tables.filter((t) => t.match(tablePrefix)?.[1] );
-        const tableVersions = matchedTables.map((t) => parseFloat(t.match(tablePrefix)?.[1] || "-1"));
-        const oldTableVersions = tableVersions.filter((v) => v < this.version);
-        return oldTableVersions;
+        const tablePrefix = this.getVersionPattern();
+        const tableVersions = tables
+            .map((tableName) => tableName.match(tablePrefix)?.[1])
+            .filter((version): version is string => Boolean(version))
+            .map((version) => Number.parseFloat(version));
+
+        return tableVersions.filter((version) => version < this.version);
     }
 
     findOldTables(tables: string[]): string[] {
-        const tablePrefix = new RegExp(`${this.name}_V(\\d+(\\.\\d+)?)`);
-        const matchedTables = tables.filter((t) => t.match(tablePrefix)?.[1] );
-        const tableVersions = matchedTables.map((t) => parseFloat(t.match(tablePrefix)?.[1] || "-1"));
-        const oldTableVersions = tableVersions.filter((v) => v < this.version);
-        const oldTableNames = oldTableVersions.map((t) => `${this.name}_V${t.toString()}`);
-        return oldTableNames;
+        const oldTableVersions = this.findOldVersions(tables);
+
+        return oldTableVersions.map(
+            (version) => `${this.name}_V${version.toString()}`
+        );
     }
 
     isCurrentVersionEsist(tables: string[]): boolean {
-        const tablePrefix = new RegExp(`${this.name}_V(\\d+(\\.\\d+)?)`);
-        const matchedTables = tables.filter((t) => t.match(tablePrefix)?.[1] );
-        const tableVersions = matchedTables.map((t) => parseFloat(t.match(tablePrefix)?.[1] || "-1"));
-        const table = tableVersions.filter((v) => v === this.version);
-        return (table && table.length === 1)
+        const tablePrefix = this.getVersionPattern();
+        const tableVersions = tables
+            .map((tableName) => tableName.match(tablePrefix)?.[1])
+            .filter((version): version is string => Boolean(version))
+            .map((version) => Number.parseFloat(version));
+
+        return tableVersions.filter((version) => version === this.version).length === 1;
+    }
+
+    private getVersionPattern(): RegExp {
+        const escapedName = this.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        return new RegExp(`^${escapedName}_V(\\d+(?:\\.\\d+)?)$`);
     }
 
     private validateColumns(
