@@ -53,7 +53,7 @@ export class SQLGenerator {
         for (const key of table.foreignKeys) {
             definitions.push(this.foreignKey(key));
         }
-        const tableName = this.escape(`${table.name}_V${table.version}`);
+        const tableName = this.escape(`${table.name}_v${table.version}`);
         return [
             `CREATE TABLE ${tableName} (`,
             definitions

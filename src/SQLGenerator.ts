@@ -113,7 +113,7 @@ export class SQLGenerator {
 
         const tableName =
             this.escape(
-                `${table.name}_V${table.version}`
+                `${table.name}_v${table.version}`
             );
 
 
