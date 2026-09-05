@@ -169,7 +169,7 @@ export class Table {
     }
     findOldTables(tables) {
         const oldTableVersions = this.findOldVersions(tables);
-        return oldTableVersions.map((version) => `${this.name}_V${version.toString()}`);
+        return oldTableVersions.map((version) => `${this.name}_v${version.toString()}`);
     }
     isCurrentVersionEsist(tables) {
         const tablePrefix = this.getVersionPattern();
@@ -181,7 +181,7 @@ export class Table {
     }
     getVersionPattern() {
         const escapedName = this.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        return new RegExp(`^${escapedName}_V(\\d+(?:\\.\\d+)?)$`);
+        return new RegExp(`^${escapedName}_v(\\d+(?:\\.\\d+)?)$`);
     }
     validateColumns(columns) {
         for (const name of columns) {

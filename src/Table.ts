@@ -320,7 +320,7 @@ export class Table {
         const oldTableVersions = this.findOldVersions(tables);
 
         return oldTableVersions.map(
-            (version) => `${this.name}_V${version.toString()}`
+            (version) => `${this.name}_v${version.toString()}`
         );
     }
 
@@ -336,7 +336,7 @@ export class Table {
 
     private getVersionPattern(): RegExp {
         const escapedName = this.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        return new RegExp(`^${escapedName}_V(\\d+(?:\\.\\d+)?)$`);
+        return new RegExp(`^${escapedName}_v(\\d+(?:\\.\\d+)?)$`);
     }
 
     private validateColumns(
