@@ -334,6 +334,10 @@ export class Table {
         return tableVersions.filter((version) => version === this.version).length === 1;
     }
 
+    getTableName(): string {
+        return `${this.name}_v${this.version}`
+    }
+
     private getVersionPattern(): RegExp {
         const escapedName = this.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         return new RegExp(`^${escapedName}_v(\\d+(?:\\.\\d+)?)$`);

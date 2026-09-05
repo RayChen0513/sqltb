@@ -179,6 +179,9 @@ export class Table {
             .map((version) => Number.parseFloat(version));
         return tableVersions.filter((version) => version === this.version).length === 1;
     }
+    getTableName() {
+        return `${this.name}_v${this.version}`;
+    }
     getVersionPattern() {
         const escapedName = this.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         return new RegExp(`^${escapedName}_v(\\d+(?:\\.\\d+)?)$`);
