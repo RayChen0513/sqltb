@@ -68,7 +68,7 @@ export class SQLGenerator {
                 .map((column) => this.escape(column))
                 .join(", ") +
             `) REFERENCES ` +
-            `${this.escape(typeof key.referenceTable === "string" ? key.referenceTable : `${key.referenceTable.name}_V${String(key.referenceTable.version)}`)} (` +
+            `${this.escape(typeof key.referenceTable === "string" ? key.referenceTable : `${key.referenceTable.name}_v${String(key.referenceTable.version)}`)} (` +
             key.referenceColumns
                 .map((column) => this.escape(column))
                 .join(", ") +
